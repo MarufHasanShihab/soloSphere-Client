@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { RouterProvider } from 'react-router-dom'
+import router from './Routes/Routes'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <h1 className="text-3xl font-bold underline text-red-500 font-lato">
-      Hello world!
-    </h1>
+    <RouterProvider router={router}/>
   </StrictMode>,
 )
