@@ -1,14 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../assets/login.jpg";
 import logo from "../assets/nav_logo.png";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const { googleSignIn, createUser,updateUserProfile } = useAuth();
+  const navigate = useNavigate();
+
+  // handle google sign in
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        toast.success("User register sucessfully!");
+      })
+      .catch((err) => {
+        toast.error(err.code.split("/")[1].split("-").join(" "));
+      });
+  };
+
+  // handle email password register
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    const name = form.name.value;
+    const photo = form.photo.value;
+    createUser(email, password)
+      .then(() => {
+        updateUserProfile(name,photo)
+        .then(()=>{
+          navigate("/")
+          toast.success("User created sucessfully!");
+        })
+        .catch(err =>{
+          console.log(err)
+        })
+      })
+      .catch((err) => {
+        toast.error(err.code.split("/")[1].split("-").join(" "));
+      });
   };
   return (
     <div className="w-full flex flex-col sm:flex-row">
@@ -24,7 +56,9 @@ const Register = () => {
           Welcome back!
         </p>
 
-        <button className="w-full flex items-center justify-between mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <button
+          onClick={handleGoogleSignIn}
+          className="w-full flex items-center justify-between mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
           <div className="px-4 py-2">
             <svg className="w-6 h-6" viewBox="0 0 40 40">
               <path
