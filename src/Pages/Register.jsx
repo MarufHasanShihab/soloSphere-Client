@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { googleSignIn, createUser,updateUserProfile } = useAuth();
+  const { googleSignIn, createUser,updateUserProfile,user,setUser } = useAuth();
   const navigate = useNavigate();
 
   // handle google sign in
@@ -33,6 +33,7 @@ const Register = () => {
         .then(()=>{
           navigate("/")
           toast.success("User created sucessfully!");
+          setUser({...user,displayName:name,photoURL:photo});
         })
         .catch(err =>{
           console.log(err)

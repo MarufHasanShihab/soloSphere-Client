@@ -25,7 +25,7 @@ const Navbar = () => {
               />
             )}
             <div
-              className={`absolute w-32 border px-4 py-2 right-[-5px] top-11 shadow-sm rounded-sm space-y-2 text-[18px] hidden group-hover:block`}>
+              className={`absolute w-32 border px-4 py-2 right-[-5px] top-10 shadow-sm rounded-sm space-y-2 text-[18px] hidden group-hover:block`}>
               <p onClick={logOut} className="cursor-pointer">Logout</p>
             </div>
           </div>
